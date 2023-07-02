@@ -55,66 +55,31 @@ jupyter lab
 ## **Results Analysis Report**
 #### Below are the key results and analysis of the two ML models 
 ### ***ML Model 1 - SVC Strategy***
-#### > Using the original data set as-is (e.g. unbalanced), create a Logistics Regression model to predict the Loan Status classifiction for future loans by:
-#### > Creating the model and fitting it to the original data set
-#### > Training the model (*Note: We are using the default Training/Test split of 75/25)* 
-#### > Test the model by generating the class predictions
-#### > Qualify the prediction results by measuring/generating and analyzing accuracy, Confussion Matrix and the Classification Report
-### ***Model 2 - Resampling/Balanced Classification***
-#### > Using the [RandomOversampler module from the imbalanced-learn library](https://imbalanced-learn.org/stable/generated/imblearn.over_sampling.RandomOverSampler.html) resample the loan data and create a Logistics Regression model to predict the Loan Status classifiction for future loans by:
-#### > Creating the model
-#### > Run Resampling and ensure the classes are now balanced - e.g. Class 0 and Class 1 counts are equal
-#### > Fit the model to the resampled data set
-#### > Training the model (*Note: We will continue to use the default Training/Test split of 75/25)* 
-#### > Test the model by generating the class predictions
-#### > Qualify the prediction results by measuring/generating and analyzing accuracy, Confussion Matrix and the Classification Report
+#### > Using the sample data set, we train the SVC model to predict the Trading signal 
+#### > Then we test the model and run the Classification Report:
+##### ![svc_report.txt](https://github.com/LUTOV001/14.AlgoTrading/blob/main/Results/svc_report.txt)
+#### > And finally, we calculate the SVC Returns by multiplying the ML predicted signal times the Actual Return values and plot these 2, SVC Returns (Predicted) vs. the Actual returns:
+##### ![svc_returns_plot.png](https://github.com/LUTOV001/14.AlgoTrading/blob/main/Results/svc_returns_plot.png)
+#####
+### ***ML Model 2 - LogReg Strategy***
+#### > Using the sample data set, we train the LogReg model to predict the Trading signal 
+#### > Then we test the model and run the Classification Report:
+##### ![logreg_report.txt](https://github.com/LUTOV001/14.AlgoTrading/blob/main/Results/logreg_report.txt)
+#### > And finally, we calculate the LogReg Returns by multiplying the ML predicted signal times the Actual Return values and plot these 2, LogReg Returns (Predicted) vs. the Actual returns:
+##### ![logreg_returns_plot.png](https://github.com/LUTOV001/14.AlgoTrading/blob/main/Results/logreg_returns_plot.png)
+#####
 ---
-## **Results**
-#### Below are the key results and analysis of the two ML models 
-
-#### ***Machine Learning Model 1 (Original Data):***
-#### *Confusion Matrix*
-#### [[18663  , 102]
-#### [   56   , 563]]
-
-#### The first row of the matrix shows that 18,663 instances were correctly classified as positive, and 102 instances were incorrectly classified as negative. 
-#### The second row of the matrix shows that 56 instances were incorrectly classified as positive, and 563 instances were correctly classified as negative.
-#### We can see that due to the imbalance in the original data set, Class 1 metrics are not as good as Class 0, as shown by the 102 'False Negatives'.
-
-#### *Classification Imbalanced Report*  
-#### ![ML1 Classification Report](https://github.com/LUTOV001/12.ML_Credit_Risk/blob/main/Resources/ML_Model_1.jpg) 
-
-#### While the overall model accuracy is 95%, we need to look at the detailed results by class: 
-#### *1. Healthy Loan (Class 0):* Precision and F1 are both 100% and recall is almost as good (99%). While the SPE at 91% indicates good performance identifying 'positives' (e.g. correctly predicting 0s as such) there could be improvements in identifying 'false positives', which could be accomplished by increasing the training data rate (we used the default 75% for this model) and/or changing the evaluation model (Logistic Regression was used).
-#### *2. High Risk Loan (Class 1):* Precision is 85% and f1 is 88%. While the spe at 99% indicates good performance identifying 'negatives' (e.g. correctly predicting 1s as such) there could be improvements in identifying 'false negatives'. This could be accomplished by increasing the training data rate (we used the default 75% for the original data set) and using a balanced data set
-#### The IBA rate - which measures the model's accuracy taking into account class imbalance - looks good at 91% and 90% for class 0 and class 1 respectively, aligning with the other good ratios for Class 0, however, as discussed above, there is room for improvement for Class 1, therefore I recommend a resampling and balancing of the data to run an improved model.
-
-#### ***Machine Learning Model 2 (Re-sampled/Balanced Data):***
-
-#### *Confusion Matrix*
-#### [[18649   , 116]
-#### [    4   , 615]]
-
-#### The first row of the matrix shows that 18,649 instances were correctly classified as positive, and 116 instances were incorrectly classified as negative. 
-#### The second row of the matrix shows that 4 instances were incorrectly classified as positive, and 615 instances were correctly classified as negative.
-#### We can see the impact of a balanced data set: 
-#### The 'True negative' rate remained high, improving from 563 to 615 (9% improvement). On the down side, for 'False Negatives', there was a 13% increase in cases (from 102 to 116)
-  
-#### ![ML2 Classification Report](https://github.com/LUTOV001/12.ML_Credit_Risk/blob/main/Resources/ML_Model%20_2.jpg) 
-
-#### While the overall model accuracy is now 99% after resampling, let's look at the detailed results by class: 
-#### *1. Healthy Loan (Class 0):* Precision and F1 remained at 100% and recall also remained at 99%. Looking at the Confusion Matrix, there continued to be a high percentage of 'True Negatives' and a low percentage of False Positives, so the re-sampling did not impact the great rates we had for Class 0 and in fact, improved the "False positive" count, as explained above.
-#### *2. High Risk Loan (Class 1):* While precision fell 1 point to 84%, F1 improved 3 points to 91% and recall jumped 14 points to 99%. Interpretation of metrics and conclusions follow below.
----
-## **Summary**
-
-#### In conclusion, looking at the models from both the ***Risk*** and ***Revenue*** perspectives, the resampling and rebalancing of the model proved benefitial on both areas: 
-
-#### *Risk :* Besides improving the overall accuracy of the model by 4 points, the resampling improved the counts on risk relevant categories by improving the "True Negative" counts by 9% with very low impact (-1%) on 'True Positive" counts and a reduction of 96% on "False Positives".
-
-#### *Revenue :* As mentioned above, minimal impact on the main revenue driver "True Positives" (-1%) and while it increased the case of cases driving revenue loss - e.g.'False Negatives' this comes as the downside of operating with a lower risk profile with the 96% reduction on  "False Positive" counts.
-
-#### For the reasons listed above, ***we recommend using the Resample/Balance model which prioritizes operations with a lower risk profile without significant revenue impacts.***
+### **Conclussion and Summary**
+### ***Questions and Answers from the Notebook***
+#### *1. What impact resulted from increasing or decreasing either or both of the SMA windows?*
+##### *Answer:* Changing the window sizes will change their SMA values, the longer the period, the more diluted the impact of the hourly changes in the data, hence impacting the Trade signal output occurrences (e.g. less 1s, more -1s) which in turn would make the sample data more unbalanced for 1s and thus making the training of the ML model and as a result its performance in testing less accurate.
+#### *2. Did this new model (LogReg) perform better or worse than the provided baseline model?* 
+##### *Answer:* The Testing Classification report showed improvements of the LogReg model over the SVC model as follows:
+###### *Class (-1)* : Recall improved from 4% to 33%, making the F1 score improve from 7% to 38%
+###### *Class ( 1)* : Recall decreased from 96% to 66%, making the F1 score decrease from 71% to 61%
+###### *Overall Accuracy* : The LogReg model had a marginal improvement of 1 point, from 49% to 50% on overall precision and 8 points (43% to 51%) for the F1 score
+#### *3. Did this new model perform better or worse than your tuned trading algorithm?*
+##### *Answer:* Based on the Classifiction reports, the LogReg model overall performed better than the SVC model. The degradation in performance for class 1 (e.g. Buy), however, points to an opportunity to further improve the model by either getting a more balanced data set and/or changing the training parameters to better train the model
 ---
 ### **Credits**
 #### Prepared by Luis Torres 
